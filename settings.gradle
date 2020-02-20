@@ -1,0 +1,4 @@
+rootProject.name = 'chapi-domain'
+
+
+enableFeaturePreview('GRADLE_METADATA')
