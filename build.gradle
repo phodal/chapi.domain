@@ -11,11 +11,11 @@ plugins {
 }
 apply plugin: 'com.jfrog.bintray'
 
-def GROUP_ID="com.chapi" // Your orginization in reverse domain notation. For example:  def GROUP_ID="com.fudge"
-def ARTIFACT_ID="domain" // The name you gave your package in bintray. In our example it would be:  def ARTIFACT_ID="kotlin-awesome-printer"
+def GROUP_ID="com.phodal.chapi" // Your orginization in reverse domain notation. For example:  def GROUP_ID="com.fudge"
+def ARTIFACT_ID="chapi-domain" // The name you gave your package in bintray. In our example it would be:  def ARTIFACT_ID="kotlin-awesome-printer"
 
-def BINTRAY_REPOSITORY="chapi-domain" // What you named your repository in bintray. In our example it would be "myrepository"
-def BINTRAY_ORGINIZATION="guide" //  Your public facing Bintray name. You can see your Bintray name on the top right corner in Bintray. I named it "guide" for our example.
+def BINTRAY_REPOSITORY="chapi" // What you named your repository in bintray. In our example it would be "myrepository"
+def BINTRAY_ORGINIZATION="phodal" //  Your public facing Bintray name. You can see your Bintray name on the top right corner in Bintray. I named it "guide" for our example.
 
 def ISSUE_URL="https://github.com/phodal/chapi-domain/issues" // A link to an issue tracker for the library, in our example: "https://github.com/phodal/chapi-domain/issues"
 def SITE_URL="https://github.com/phodal/chapi-domain" // A link to the library's site. In our example: "https://github.com/phodal/chapi-domain"
