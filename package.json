@@ -4,11 +4,11 @@
   "version": "$LIBRARY_VERSION_NAME",
   "private": false,
   "files": [
-    "kotlin/",
+    "chapi-domain.js",
     "package.json",
     "README.md"
   ],
-  "main": "kotlin/chapi-domain.js",
+  "main": "chapi-domain.js",
   "repository": "https://github.com/phodal/chapi-domain",
   "author": "Phodal HUANG"
 }
