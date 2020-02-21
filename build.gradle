@@ -5,11 +5,15 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '1.3.61'
     id "base"
     id "maven-publish"
+    id 'org.jetbrains.kotlin.multiplatform' version '1.3.61'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.3.61'
 }
+
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'kotlinx-serialization'
 
 def GROUP_ID="com.phodal.chapi" // Your orginization in reverse domain notation. For example:  def GROUP_ID="com.fudge"
 def ARTIFACT_ID="chapi-domain" // The name you gave your package in bintray. In our example it would be:  def ARTIFACT_ID="kotlin-awesome-printer"
@@ -29,6 +33,7 @@ repositories {
 group GROUP_ID
 version LIBRARY_VERSION_NAME
 
+def serialization_version = "0.14.0"
 
 kotlin {
     jvm()
@@ -42,11 +47,11 @@ kotlin {
     // For Linux, should be changed to e.g. linuxX64
     // For MacOS, should be changed to e.g. macosX64
     // For Windows, should be changed to e.g. mingwX64
-    mingwX64("mingw")
     sourceSets {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
             }
         }
         commonTest {
@@ -58,6 +63,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
             }
         }
         jvmTest {
@@ -69,16 +75,13 @@ kotlin {
         jsMain {
             dependencies {
                 implementation kotlin('stdlib-js')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
             }
         }
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
             }
-        }
-        mingwMain {
-        }
-        mingwTest {
         }
     }
 }
