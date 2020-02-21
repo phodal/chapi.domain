@@ -24,7 +24,7 @@ def BINTRAY_ORGINIZATION="phodal" //  Your public facing Bintray name. You can s
 def ISSUE_URL="https://github.com/phodal/chapi-domain/issues" // A link to an issue tracker for the library, in our example: "https://github.com/phodal/chapi-domain/issues"
 def SITE_URL="https://github.com/phodal/chapi-domain" // A link to the library's site. In our example: "https://github.com/phodal/chapi-domain"
 def VCS_URL="https://github.com/phodal/chapi-domain.git" // A link to the version control system (where the code is stored). In our example: "https://github.com/phodal/chapi-domain.git"
-def LIBRARY_VERSION_NAME=0.1 // The current version of your library. You will need to update this value whenever you upload a new release. For example: 1.0
+def LIBRARY_VERSION_NAME="0.1.1" // The current version of your library. You will need to update this value whenever you upload a new release. For example: 1.0
 
 repositories {
     jcenter()
