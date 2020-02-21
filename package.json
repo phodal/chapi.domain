@@ -8,6 +8,10 @@
     "package.json",
     "README.md"
   ],
+  "peerDependencies": {
+    "@jetbrains/kotlin-extensions": "^$kotlinext_version",
+    "kotlin": "^$kotlin_version"
+  },
   "main": "chapi-domain.js",
   "repository": "https://github.com/phodal/chapi-domain",
   "author": "Phodal HUANG"
