@@ -1,5 +1,14 @@
 {
   "license": "MPL-2.0",
   "name": "@chapi/domain",
-  "version": "0.1.2"
+  "version": "$LIBRARY_VERSION_NAME",
+  "private": false,
+  "files": [
+    "kotlin/",
+    "package.json",
+    "README.md"
+  ],
+  "main": "kotlin/chapi-domain.js",
+  "repository": "https://github.com/phodal/chapi-domain",
+  "author": "Phodal HUANG"
 }
