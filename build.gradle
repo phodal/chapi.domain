@@ -140,6 +140,9 @@ ext.configurePublishingWithNPM = {
         from '.'
         into 'build/npm'
         include 'package.json'
+        expand(
+                LIBRARY_VERSION_NAME: "$LIBRARY_VERSION_NAME"
+        )
     }
 
     task prepublish(type: Copy) {
