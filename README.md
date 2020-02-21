@@ -1,5 +1,8 @@
 # Chapi Domain MultiplePlatform
 
+![npm](https://img.shields.io/npm/v/@chapi/domain?label=%40chapi%2Fdomain)
+[![Download](https://api.bintray.com/packages/phodal/chapi/chapi-domain/images/download.svg)](https://bintray.com/phodal/chapi/chapi-domain/_latestVersion)
+
 ## Usage
 
 ### Setup Java
