@@ -1,6 +1,20 @@
 buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
     dependencies {
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+        classpath "com.github.node-gradle:gradle-node-plugin:$node_plugin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -14,22 +28,32 @@ plugins {
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'com.github.node-gradle.node'
 
-def GROUP_ID="com.phodal.chapi" // Your orginization in reverse domain notation. For example:  def GROUP_ID="com.fudge"
-def ARTIFACT_ID="chapi-domain" // The name you gave your package in bintray. In our example it would be:  def ARTIFACT_ID="kotlin-awesome-printer"
+def GROUP_ID = "com.phodal.chapi" // Your orginization in reverse domain notation. For example:  def GROUP_ID="com.fudge"
+def ARTIFACT_ID = "chapi-domain" // The name you gave your package in bintray. In our example it would be:  def ARTIFACT_ID="kotlin-awesome-printer"
 
-def BINTRAY_REPOSITORY="chapi" // What you named your repository in bintray. In our example it would be "myrepository"
-def BINTRAY_ORGINIZATION="phodal" //  Your public facing Bintray name. You can see your Bintray name on the top right corner in Bintray. I named it "guide" for our example.
+def BINTRAY_REPOSITORY = "chapi" // What you named your repository in bintray. In our example it would be "myrepository"
+def BINTRAY_ORGINIZATION = "phodal" //  Your public facing Bintray name. You can see your Bintray name on the top right corner in Bintray. I named it "guide" for our example.
 
-def ISSUE_URL="https://github.com/phodal/chapi-domain/issues" // A link to an issue tracker for the library, in our example: "https://github.com/phodal/chapi-domain/issues"
-def SITE_URL="https://github.com/phodal/chapi-domain" // A link to the library's site. In our example: "https://github.com/phodal/chapi-domain"
-def VCS_URL="https://github.com/phodal/chapi-domain.git" // A link to the version control system (where the code is stored). In our example: "https://github.com/phodal/chapi-domain.git"
-def LIBRARY_VERSION_NAME="0.1.1" // The current version of your library. You will need to update this value whenever you upload a new release. For example: 1.0
+def ISSUE_URL = "https://github.com/phodal/chapi-domain/issues" // A link to an issue tracker for the library, in our example: "https://github.com/phodal/chapi-domain/issues"
+def SITE_URL = "https://github.com/phodal/chapi-domain" // A link to the library's site. In our example: "https://github.com/phodal/chapi-domain"
+def VCS_URL = "https://github.com/phodal/chapi-domain.git" // A link to the version control system (where the code is stored). In our example: "https://github.com/phodal/chapi-domain.git"
+def LIBRARY_VERSION_NAME = "0.1.1" // The current version of your library. You will need to update this value whenever you upload a new release. For example: 1.0
 
 repositories {
     jcenter()
     mavenCentral()
+    maven {
+        url "https://dl.bintray.com/kotlin/kotlin-js-wrappers"
+    }
+    maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+    maven {
+        url "https://dl.bintray.com/kotlin/kotlin-js-wrappers"
+    }
 }
+
 group GROUP_ID
 version LIBRARY_VERSION_NAME
 
@@ -97,6 +121,49 @@ afterEvaluate {
         }
     }
 }
+
+
+def projectName = name
+
+//apply plugin: 'kotlin2js'
+//compileKotlin2Js {
+//    kotlinOptions {
+//        outputFile = "$projectDir/build/classes/main/${projectName}.js"
+//        moduleKind = "commonjs"
+//        sourceMap = true
+//        sourceMapEmbedSources = "always"
+//    }
+//}
+
+ext.configurePublishingWithNPM = {
+    task processPkg(type: Copy) {
+        from '.'
+        into 'build/npm'
+        include 'package.json'
+    }
+
+    task prepublish(type: Copy) {
+        from '.'
+        into 'build/npm'
+        exclude 'package.json'
+        exclude 'build/npm'
+    }
+
+    npm_publish {
+        args = ['--access', 'public']
+        execOverrides {
+            it.workingDir = 'build/npm'
+        }
+    }
+
+    npm_publish.dependsOn prepublish
+    npm_publish.dependsOn processPkg
+    prepublish.dependsOn build
+}
+
+//copy from: https://github.com/JetBrains/kotlin-wrappers/blob/master/build.gradle
+//applyKotlinJS()
+configurePublishingWithNPM()
 
 def getBintrayUserProperty() {
     return hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
