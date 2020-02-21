@@ -6,7 +6,7 @@
 
 1. add deps
 
-```
+```groovy
 repositories {
     ...
     maven {url  "https://dl.bintray.com/phodal/chapi"}
@@ -15,7 +15,7 @@ repositories {
 
 and
 
-```
+```groovy
 dependencies {
     implementation 'com.phodal.chapi:chapi-domain:0.1.1'
 }
@@ -23,7 +23,7 @@ dependencies {
 
 2. Usage in Code
 
-```
+```kotlin
 package teapi.application
 
 import chapi.domain.core.CodeDataStruct
@@ -37,13 +37,11 @@ fun main(): String  {
 
 ### Setup JavaScript
 
-1. add deps
-
-`yarn add @chapi/domain` or `npm install --save @chapi/domain`
+1. add deps `yarn add @chapi/domain` or `npm install --save @chapi/domain`
 
 2. Usage In Code
 
-```
+```javascript
 var chapi = require("@chapi/domain").chapi.domain.core;
 
 var dataStruct = new chapi.CodeDataStruct("Hello");
@@ -55,10 +53,9 @@ console.log(dataStruct);
 
 ### publish package
 
-```
+```bash
 ./gradlew bintrayUpload
 ```
-
 
 License
 ---
